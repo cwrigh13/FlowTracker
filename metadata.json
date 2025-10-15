@@ -1,0 +1,5 @@
+{
+  "name": "FlowTracker",
+  "description": "A modern Kanban board to track issues and suggestions for item management workflows.",
+  "requestFramePermissions": []
+}

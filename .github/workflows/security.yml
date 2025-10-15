@@ -1,0 +1,103 @@
+name: Security Scan
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - 'package-lock.json'
+      - 'backend/package-lock.json'
+  workflow_dispatch:
+
+jobs:
+  dependency-audit:
+    name: Dependency Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      - name: Run npm audit (Frontend)
+        id: audit-frontend
+        run: |
+          npm audit --json > frontend-audit.json || true
+          cat frontend-audit.json
+
+      - name: Run npm audit (Backend)
+        id: audit-backend
+        working-directory: ./backend
+        run: |
+          npm audit --json > backend-audit.json || true
+          cat backend-audit.json
+
+      - name: Check for high/critical vulnerabilities
+        run: |
+          FRONTEND_CRITICAL=$(cat frontend-audit.json | grep -o '"critical":[0-9]*' | cut -d':' -f2 || echo "0")
+          FRONTEND_HIGH=$(cat frontend-audit.json | grep -o '"high":[0-9]*' | cut -d':' -f2 || echo "0")
+          BACKEND_CRITICAL=$(cat backend/backend-audit.json | grep -o '"critical":[0-9]*' | cut -d':' -f2 || echo "0")
+          BACKEND_HIGH=$(cat backend/backend-audit.json | grep -o '"high":[0-9]*' | cut -d':' -f2 || echo "0")
+          
+          echo "Frontend: $FRONTEND_CRITICAL critical, $FRONTEND_HIGH high"
+          echo "Backend: $BACKEND_CRITICAL critical, $BACKEND_HIGH high"
+          
+          if [ "$FRONTEND_CRITICAL" -gt "0" ] || [ "$BACKEND_CRITICAL" -gt "0" ]; then
+            echo "❌ Critical vulnerabilities found!"
+            exit 1
+          fi
+          
+          if [ "$FRONTEND_HIGH" -gt "0" ] || [ "$BACKEND_HIGH" -gt "0" ]; then
+            echo "⚠️  High severity vulnerabilities found. Consider updating dependencies."
+          fi
+
+      - name: Upload audit results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-audit-results
+          path: |
+            frontend-audit.json
+            backend/backend-audit.json
+
+  codeql-analysis:
+    name: CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['javascript', 'typescript']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+

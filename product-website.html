@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowTracker - Modern Library Item Management for Australian Libraries</title>
+    <meta name="description" content="FlowTracker helps Australian libraries track, manage, and resolve item issues efficiently with visual workflows and multi-location support.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .pricing-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+        
+        .pricing-card.popular {
+            border: 3px solid #667eea;
+            transform: scale(1.08);
+        }
+        
+        
+        .stat-counter {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #667eea;
+        }
+        
+        .workflow-demo {
+            background: linear-gradient(to right, #f7fafc, #edf2f7);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .workflow-column {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 200px;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .slider-container {
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold gradient-text">FlowTracker</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-indigo-600 transition">Features</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-indigo-600 transition">Pricing</a>
+                    <a href="#case-studies" class="text-gray-700 hover:text-indigo-600 transition">Case Studies</a>
+                    <a href="#faq" class="text-gray-700 hover:text-indigo-600 transition">FAQ</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/trial-signup" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition font-medium">Start Free Trial</a>
+                    <a href="/login" class="text-indigo-600 hover:text-indigo-800 font-medium transition px-4 py-2 rounded-lg border border-indigo-600 hover:bg-indigo-50">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 gradient-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-white fade-in-up">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                        Stop Losing Track of Library Items. Start Resolving Issues Faster.
+                    </h1>
+                    <p class="text-xl mb-8 text-indigo-100">
+                        FlowTracker is the visual workflow platform that helps library staff track, manage, and resolve item issues efficiently—with seamless multi-location support.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <a href="/trial-signup" class="bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition text-center">
+                            Start Free 30-Day Trial
+                        </a>
+                        <a href="/contact" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-indigo-600 transition text-center">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-2xl p-6">
+                    <div class="workflow-demo">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="workflow-column">
+                                <h4 class="font-semibold text-sm mb-3 text-gray-700">Newly Reported</h4>
+                                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded mb-2 text-sm">
+                                    <p class="font-medium">3D Printer Issue</p>
+                                    <p class="text-gray-600 text-xs mt-1">Not heating properly</p>
+                                </div>
+                                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded text-sm">
+                                    <p class="font-medium">Telescope Lens</p>
+                                    <p class="text-gray-600 text-xs mt-1">Needs cleaning</p>
+                                </div>
+                            </div>
+                            <div class="workflow-column">
+                                <h4 class="font-semibold text-sm mb-3 text-gray-700">In Repair</h4>
+                                <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded mb-2 text-sm">
+                                    <p class="font-medium">Sewing Machine</p>
+                                    <p class="text-gray-600 text-xs mt-1">Awaiting parts</p>
+                                </div>
+                            </div>
+                            <div class="workflow-column">
+                                <h4 class="font-semibold text-sm mb-3 text-gray-700">Resolved</h4>
+                                <div class="bg-green-50 border-l-4 border-green-400 p-3 rounded mb-2 text-sm">
+                                    <p class="font-medium">Power Drill</p>
+                                    <p class="text-gray-600 text-xs mt-1">Ready for circulation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-600 mt-4 text-sm">
+                        <i class="fas fa-mouse-pointer mr-2"></i>
+                        Drag and drop issues through your workflow
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem/Solution Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Your Library Deserves Better Than Spreadsheets</h2>
+                <p class="text-xl text-gray-600">See how FlowTracker transforms chaotic item tracking spreadsheets into streamlined workflows</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-red-50 border-2 border-red-200 rounded-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                            <i class="fas fa-times text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-red-900">Without FlowTracker</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Items lost in email chains and paper notes</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">No visibility into repair status or timelines</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Manual data entry duplicating work from ILS</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Staff wasting hours searching for information</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">No accountability or audit trail</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Customers frustrated by lack of updates</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Branch locations can't coordinate effectively</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 border-2 border-green-200 rounded-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                            <i class="fas fa-check text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-green-900">With FlowTracker</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Every issue visible on one centralised dashboard</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Real-time status updates across all locations</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Instant access to item details and history</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Complete audit trail with automated notifications</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Self-service customer reporting capabilities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Multi-branch coordination in one system</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Everything You Need to Manage Library Items</h2>
+                <p class="text-xl text-gray-600">Powerful features designed specifically for library workflows</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="feature-card bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-columns text-3xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Visual Workflow Platform</h3>
+                    <p class="text-gray-600">Drag issues through customisable status columns. See at a glance what's new, in progress, and ready to circulate.</p>
+                </div>
+                <div class="feature-card bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <div class="bg-green-100 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-building text-3xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Multi-Location Management</h3>
+                    <p class="text-gray-600">Perfect for library systems with multiple branches. Complete data isolation or shared visibility—you choose.</p>
+                </div>
+                <div class="feature-card bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-mobile-alt text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Mobile-First Design</h3>
+                    <p class="text-gray-600">Full functionality on any device. Report issues from the circulation desk or while shelving.</p>
+                </div>
+                <div class="feature-card bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <div class="bg-red-100 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-3xl text-red-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Enterprise Security</h3>
+                    <p class="text-gray-600">Bank-level encryption, role-based permissions, audit trails, and Australian Privacy Act compliance.</p>
+                </div>
+                <div class="feature-card bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <div class="bg-pink-100 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-paperclip text-3xl text-pink-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">File Attachments</h3>
+                    <p class="text-gray-600">Upload photos of damaged items, attach repair estimates. Organised, searchable, automatically backed up.</p>
+                </div>
+                <div class="feature-card bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <div class="bg-teal-100 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-line text-3xl text-teal-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Advanced Reporting</h3>
+                    <p class="text-gray-600">Track resolution times, identify problem collections, analyse trends. Export reports as PDF or CSV.</p>
+                </div>
+                <div class="feature-card bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <div class="bg-cyan-100 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-users text-3xl text-cyan-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Role-Based Access</h3>
+                    <p class="text-gray-600">Control who sees what with granular permissions. Perfect for multi-staff environments and sensitive collections.</p>
+                </div>
+                <div class="feature-card bg-white border-2 border-gray-200 rounded-lg p-6">
+                    <div class="bg-emerald-100 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-search text-3xl text-emerald-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Smart Search</h3>
+                    <p class="text-gray-600">Find any issue instantly with powerful search filters, tags, and full-text search across all content.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Transparent Pricing for Every Library Size</h2>
+                <p class="text-xl text-gray-600 mb-8">30-day free trial • No credit card required • Cancel anytime</p>
+                <div class="inline-flex items-center bg-white rounded-lg p-1 shadow-sm gap-2">
+                    <button class="billing-toggle px-8 py-3 rounded-md font-bold text-lg bg-indigo-600 text-white" data-billing="monthly">Monthly</button>
+                    <button class="billing-toggle px-8 py-3 rounded-md font-bold text-lg text-gray-700 border-2 border-indigo-600" data-billing="annual">Annual <span class="save-badge text-gray-900 font-bold text-sm ml-1">(Save 15%)</span></button>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Essential Tier -->
+                <div class="pricing-card bg-white rounded-lg shadow-lg p-8 border-2 border-gray-200">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold mb-2">Essential</h3>
+                        <p class="text-gray-600 mb-4">For Small Libraries</p>
+                        <div class="text-4xl font-bold mb-2">
+                            <span class="price-monthly">$19.95AUD</span>
+                            <span class="price-annual hidden">$1,010</span>
+                            <span class="text-lg font-normal text-gray-600">/month</span>
+                        </div>
+                        <p class="text-sm text-gray-500 price-annual-note hidden">Billed annually ($1,010/year)</p>
+                    </div>
+                    <div class="mb-8">
+                        <p class="font-semibold mb-4">Perfect for:</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Single-location libraries</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Up to 25 active users</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Basic issue tracking needs</li>
+                        </ul>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-indigo-600 mr-2 mt-1"></i>
+                            <span class="text-sm">Unlimited issues & collections</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-indigo-600 mr-2 mt-1"></i>
+                            <span class="text-sm">99.5% uptime SLA</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-indigo-600 mr-2 mt-1"></i>
+                            <span class="text-sm">Email support (business hours)</span>
+                        </li>
+                    </ul>
+                    <a href="#trial" class="block text-center bg-gray-100 text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">Start Free Trial</a>
+                </div>
+
+                <!-- Professional Tier (Popular) -->
+                <div class="pricing-card popular bg-white rounded-lg shadow-2xl p-8 relative">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <span class="bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
+                    </div>
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold mb-2">Professional</h3>
+                        <p class="text-gray-600 mb-4">For Growing Library Systems</p>
+                        <div class="text-4xl font-bold mb-2">
+                            <span class="price-monthly">$49.95AUD</span>
+                            <span class="price-annual hidden">$3,050</span>
+                            <span class="text-lg font-normal text-gray-600">/month</span>
+                        </div>
+                        <p class="text-sm text-gray-500 price-annual-note hidden">Billed annually ($3,050/year)</p>
+                    </div>
+                    <div class="mb-8">
+                        <p class="font-semibold mb-4">Perfect for:</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Multi-branch systems</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Up to 100 active users</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Advanced workflows</li>
+                        </ul>
+                    </div>
+                    <p class="font-semibold mb-3 text-indigo-600">Everything in Essential, plus:</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-indigo-600 mr-2 mt-1"></i>
+                            <span class="text-sm">99.9% uptime SLA</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-indigo-600 mr-2 mt-1"></i>
+                            <span class="text-sm">Advanced analytics</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-indigo-600 mr-2 mt-1"></i>
+                            <span class="text-sm">Custom workflows</span>
+                        </li>
+                    </ul>
+                    <a href="#trial" class="block text-center bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">Start Free Trial</a>
+                </div>
+
+                <!-- Enterprise Tier -->
+                <div class="pricing-card bg-white rounded-lg shadow-lg p-8 border-2 border-gray-200">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                        <p class="text-gray-600 mb-4">For Large Library Networks</p>
+                        <div class="text-3xl font-bold mb-2 text-gray-900">
+                            Let's Talk
+                        </div>
+                        <p class="text-sm text-gray-500">Tailored pricing for your needs</p>
+                    </div>
+                    <div class="mb-8">
+                        <p class="font-semibold mb-4">Perfect for:</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Large multi-location systems</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>100+ users</li>
+                        </ul>
+                    </div>
+                    <p class="font-semibold mb-3 text-indigo-600">Everything in Professional, plus:</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-indigo-600 mr-2 mt-1"></i>
+                            <span class="text-sm">99.95% uptime SLA</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-indigo-600 mr-2 mt-1"></i>
+                            <span class="text-sm">Dedicated Account Manager</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-indigo-600 mr-2 mt-1"></i>
+                            <span class="text-sm">Custom branding</span>
+                        </li>
+                    </ul>
+                    <a href="#demo" class="block text-center bg-gray-100 text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">Contact Us</a>
+                </div>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-600 mb-4">
+                    <i class="fas fa-check-circle text-green-500 mr-2"></i> 30-day money-back guarantee
+                    <i class="fas fa-check-circle text-green-500 ml-4 mr-2"></i> No setup fees
+                    <i class="fas fa-check-circle text-green-500 ml-4 mr-2"></i> Data hosted in Australia
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="case-studies" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Built for Every Type of Library</h2>
+                <p class="text-xl text-gray-600">See how FlowTracker could transform workflows across different library environments</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Use Case 1: Public Library -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-8 border-2 border-indigo-100 hover:shadow-xl transition">
+                    <div class="mb-6">
+                        <div class="bg-indigo-600 text-white rounded-lg inline-block px-4 py-2 mb-4">
+                            <i class="fas fa-building mr-2"></i> Public Library
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Managing a Library of Things Collection</h3>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-indigo-900 mb-3">The Challenge:</h4>
+                        <p class="text-gray-700 text-sm mb-4">
+                            A busy public library lends out 500+ non-traditional items (3D printers, sewing machines, tools, musical instruments). Items break frequently, but staff waste hours trying to track repair status across email chains and Post-it notes.
+                        </p>
+                        <h4 class="font-semibold text-indigo-900 mb-3">How FlowTracker Helps:</h4>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-indigo-500 mr-2 mt-1"></i>
+                                <span>Photo attachments document damage for vendor estimates</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-indigo-500 mr-2 mt-1"></i>
+                                <span>Drag-and-drop board shows what's awaiting parts, in repair, or ready to circulate</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Use Case 2: Multi-Branch System -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-8 border-2 border-green-100 hover:shadow-xl transition">
+                    <div class="mb-6">
+                        <div class="bg-green-600 text-white rounded-lg inline-block px-4 py-2 mb-4">
+                            <i class="fas fa-network-wired mr-2"></i> Multi-Branch System
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Coordinating Repairs Across Locations</h3>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-green-900 mb-3">The Challenge:</h4>
+                        <p class="text-gray-700 text-sm mb-4">
+                            A library system with 8 branches shares a floating collection. When items break at one branch, they often need repair at another. Tracking cross-location transfers and repair status is chaos without a centralised system.
+                        </p>
+                        <h4 class="font-semibold text-green-900 mb-3">How FlowTracker Helps:</h4>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>All branches see the same real-time dashboard—no more duplicate work or lost items</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>Branch-specific collections with permission controls for sensitive items</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>Location transfers tracked with timestamps and audit trail</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span>System-wide analytics show which collections need budget attention</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Use Case 3: Academic Library -->
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-8 border-2 border-purple-100 hover:shadow-xl transition">
+                    <div class="mb-6">
+                        <div class="bg-purple-600 text-white rounded-lg inline-block px-4 py-2 mb-4">
+                            <i class="fas fa-university mr-2"></i> Academic Library
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Tracking Special Collections Condition</h3>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-purple-900 mb-3">The Challenge:</h4>
+                        <p class="text-gray-700 text-sm mb-4">
+                            A university archives manages rare books, manuscripts, and historical artifacts requiring ongoing conservation. Paper-based condition reports are filed away and never reviewed. No one knows the full scope of preservation needs.
+                        </p>
+                        <h4 class="font-semibold text-purple-900 mb-3">How FlowTracker Helps:</h4>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mr-2 mt-1"></i>
+                                <span>Digital condition reports with before/after photos documenting conservation work</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mr-2 mt-1"></i>
+                                <span>Prioritise conservation work by condition severity and circulation demand</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mr-2 mt-1"></i>
+                                <span>Track environmental monitoring issues (humidity, light exposure, pest damage)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mr-2 mt-1"></i>
+                                <span>Generate reports for grant applications and accreditation reviews</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+            </div>
+        </div>
+    </section>
+
+    <!-- Founding Libraries Program Section -->
+    <section class="py-20 gradient-bg text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="inline-block bg-yellow-400 text-indigo-900 px-4 py-2 rounded-full font-bold text-sm mb-6">
+                    <i class="fas fa-star mr-2"></i>LIMITED OPPORTUNITY
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Join Our Founding Libraries Program</h2>
+                <p class="text-xl text-indigo-100 mb-4">
+                    Be among the first 20 libraries to shape the future of library item management
+                </p>
+                <p class="text-lg text-indigo-200">
+                    We're looking for forward-thinking libraries to partner with us during our launch phase
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Benefits Column -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 border-2 border-white border-opacity-20">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-gift text-yellow-400 mr-3"></i>
+                        Exclusive Founding Member Benefits
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1 text-xl"></i>
+                            <div>
+                                <p class="font-semibold text-lg">50% Off for Life</p>
+                                <p class="text-indigo-200 text-sm">Lock in Professional tier pricing at $150/month forever—never pay full price</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1 text-xl"></i>
+                            <div>
+                                <p class="font-semibold text-lg">60-Day Free Trial</p>
+                                <p class="text-indigo-200 text-sm">Double the standard trial period—fully explore FlowTracker risk-free</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1 text-xl"></i>
+                            <div>
+                                <p class="font-semibold text-lg">Priority Feature Requests</p>
+                                <p class="text-indigo-200 text-sm">Your needs go to the top of our development roadmap</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1 text-xl"></i>
+                            <div>
+                                <p class="font-semibold text-lg">Dedicated Onboarding</p>
+                                <p class="text-indigo-200 text-sm">1-on-1 setup assistance and customised training sessions</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1 text-xl"></i>
+                            <div>
+                                <p class="font-semibold text-lg">Direct Developer Access</p>
+                                <p class="text-indigo-200 text-sm">Monthly check-ins with our product team to share feedback</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- What We're Looking For Column -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 border-2 border-white border-opacity-20">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-users text-yellow-400 mr-3"></i>
+                        What We're Looking For
+                    </h3>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-yellow-400 mr-3 mt-1"></i>
+                            <p class="text-indigo-100">Libraries willing to provide honest feedback during the first 3 months</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-yellow-400 mr-3 mt-1"></i>
+                            <p class="text-indigo-100">Commitment to participate in 2-3 short video interviews for testimonials</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-yellow-400 mr-3 mt-1"></i>
+                            <p class="text-indigo-100">Permission to share your success story (metrics optional, can be anonymized)</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-yellow-400 mr-3 mt-1"></i>
+                            <p class="text-indigo-100">At least 3-5 staff members who will actively use the system</p>
+                        </li>
+                    </ul>
+
+                    <div class="bg-yellow-400 bg-opacity-20 border-2 border-yellow-400 rounded-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-bold">Spots Remaining:</span>
+                            <span class="text-4xl font-bold text-yellow-400">17/20</span>
+                        </div>
+                        <div class="bg-white bg-opacity-20 rounded-full h-3 mb-4">
+                            <div class="bg-yellow-400 h-3 rounded-full" style="width: 15%"></div>
+                        </div>
+                        <p class="text-sm text-indigo-200 text-center">
+                            <i class="fas fa-clock mr-2"></i>Program closes when all spots are filled
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="#trial" class="inline-block bg-yellow-400 text-indigo-900 px-10 py-5 rounded-lg font-bold text-xl hover:bg-yellow-300 transition shadow-2xl transform hover:scale-105">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Apply for Founding Member Status
+                </a>
+                <p class="mt-4 text-indigo-200">
+                    Questions? Email us at <a href="mailto:founding@flowtracker.com" class="text-yellow-400 hover:text-yellow-300 underline">founding@flowtracker.com</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-600">Everything you need to know about FlowTracker</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-600">How long does implementation take?</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">Most libraries are fully operational within 30 minutes to 2 hours. Our guided onboarding wizard walks you through setup step-by-step. For larger Enterprise implementations with custom ILS integrations, full deployment typically takes 1-2 weeks including training.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-600">What's included in the free trial?</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">The 30-day free trial includes full access to all features of the Professional tier—no credit card required. You'll get unlimited issues, ILS integration, mobile access, notifications, reporting, and priority support during your trial. At the end, you can choose the tier that best fits your needs.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-600">Can we import existing data from spreadsheets?</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">Yes! We provide CSV import tools and can help you migrate data from Excel, Google Sheets, or other systems. Professional and Enterprise customers get assisted migration support. We'll help you map your existing data structure to FlowTracker's fields.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-600">How does ILS integration work?</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">FlowTracker connects to your ILS via API or web services. When you scan a barcode or enter an item number, we automatically fetch details like title, author, call number, and customer information from your ILS. We support Koha, Evergreen, Sierra, and can build custom adapters for other systems. Setup typically takes 15-30 minutes with your ILS credentials.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-600">What browsers and devices are supported?</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">FlowTracker works on all modern browsers (Chrome, Firefox, Safari, Edge - current and previous versions). It's fully responsive and optimised for desktop, tablet, and mobile devices (iOS and Android). No software installation needed—just a web browser and internet connection.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-600">Where is our data stored?</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">All data is stored in secure data centres in Australia, ensuring compliance with Australian Privacy Act requirements. We use enterprise-grade encryption (TLS 1.3 in transit, AES-256 at rest), daily backups, and complete multi-tenant isolation. Enterprise customers can request dedicated hosting or specific geographic requirements.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-600">Can we change tiers later?</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">Absolutely! You can upgrade at any time with immediate access to new features and pro-rated billing. Downgrades take effect at the end of your current billing period. Essential and Professional tiers have no long-term contracts—cancel anytime.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-600">Do you offer training?</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">Yes! All tiers include access to our video tutorial library, help centre, and written guides. Professional tier includes live training webinars. Enterprise customers get personalised onboarding sessions, custom training materials, and ongoing education workshops.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-600">What if we need custom features?</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">Enterprise customers can request custom development, ILS adapters, or workflow modifications. We also maintain a public feature roadmap where all customers can vote on upcoming features. Popular requests are prioritised in our development schedule.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="trial" class="py-20 gradient-bg text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Library's Workflow?</h2>
+            <p class="text-xl mb-8 text-indigo-100">Join libraries across Australia who are streamlining their item management with FlowTracker</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+                <a href="/trial-signup" class="bg-white text-indigo-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition inline-flex items-center justify-center">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Start Free 30-Day Trial
+                </a>
+                <a href="#demo" class="border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-indigo-600 transition inline-flex items-center justify-center">
+                    <i class="fas fa-calendar mr-2"></i>
+                    Schedule a Demo
+                </a>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 text-indigo-100">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>No credit card required</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>Setup in 30 minutes</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>Cancel anytime</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>Full feature access</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white text-xl font-bold mb-4 gradient-text">FlowTracker</h3>
+                    <p class="text-sm mb-4">Modern library item management for Australian libraries.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook text-xl"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#features" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition">Integrations</a></li>
+                        <li><a href="#" class="hover:text-white transition">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition">Status Page</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#case-studies" class="hover:text-white transition">Case Studies</a></li>
+                        <li><a href="#" class="hover:text-white transition">Help Centre</a></li>
+                        <li><a href="#" class="hover:text-white transition">Video Tutorials</a></li>
+                        <li><a href="#" class="hover:text-white transition">Community Forum</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="/contact" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="TERMS_OF_SERVICE.md" class="hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="PRIVACY_POLICY.md" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="SERVICE_LEVEL_AGREEMENT.md" class="hover:text-white transition">SLA</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm">&copy; 2025 FlowTracker. All rights reserved. Australian-owned and operated.</p>
+                <p class="text-sm mt-4 md:mt-0">
+                    <i class="fas fa-shield-alt mr-2"></i>Privacy Act 1988 Compliant 
+                    <i class="fas fa-server ml-4 mr-2"></i>Data Hosted in Australia
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Billing toggle
+        document.querySelectorAll('.billing-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const billing = button.dataset.billing;
+                
+                // Update button styles
+                document.querySelectorAll('.billing-toggle').forEach(btn => {
+                    btn.classList.remove('bg-indigo-600', 'text-white');
+                    btn.classList.add('text-gray-700');
+                });
+                button.classList.add('bg-indigo-600', 'text-white');
+                button.classList.remove('text-gray-700');
+                
+                // Update Save badge color
+                const saveBadge = document.querySelector('.save-badge');
+                if (billing === 'annual') {
+                    saveBadge.classList.remove('text-gray-900');
+                    saveBadge.classList.add('text-white');
+                } else {
+                    saveBadge.classList.remove('text-white');
+                    saveBadge.classList.add('text-gray-900');
+                }
+                
+                // Show/hide prices
+                if (billing === 'monthly') {
+                    document.querySelectorAll('.price-monthly').forEach(el => el.classList.remove('hidden'));
+                    document.querySelectorAll('.price-annual').forEach(el => el.classList.add('hidden'));
+                    document.querySelectorAll('.price-annual-note').forEach(el => el.classList.add('hidden'));
+                } else {
+                    document.querySelectorAll('.price-monthly').forEach(el => el.classList.add('hidden'));
+                    document.querySelectorAll('.price-annual').forEach(el => el.classList.remove('hidden'));
+                    document.querySelectorAll('.price-annual-note').forEach(el => el.classList.remove('hidden'));
+                }
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

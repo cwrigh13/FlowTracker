@@ -1,0 +1,65 @@
+# Node modules
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist
+build
+coverage
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Tests
+**/__tests__
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+src/test
+
+# CI/CD
+.github
+
+# Documentation
+*.md
+!README.md
+docs
+
+# Backend files (exclude from frontend build)
+backend
+
+# Demo files
+demo
+
+# Scripts
+setup-*.ps1
+setup-*.sh
+*.bat
+run-tests.js
+run-all-tests.js
+test-*.js
+test-*.cjs
+
+# Database
+database
+
+# Public files that should be included are explicitly copied in Dockerfile
+# Everything else is excluded by default
+

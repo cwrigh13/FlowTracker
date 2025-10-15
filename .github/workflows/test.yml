@@ -1,0 +1,77 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, clean, develop ]
+  pull_request:
+    branches: [ main, clean, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Install frontend dependencies
+      run: npm install
+      
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm install
+        
+    - name: Create test database
+      run: |
+        cd backend
+        PGPASSWORD=postgres psql -h localhost -U postgres -c "CREATE DATABASE flowtracker_test;"
+        
+    - name: Run backend tests
+      run: |
+        cd backend
+        npm test
+      env:
+        NODE_ENV: test
+        TEST_DB_HOST: localhost
+        TEST_DB_PORT: 5432
+        TEST_DB_NAME: flowtracker_test
+        TEST_DB_USER: postgres
+        TEST_DB_PASSWORD: postgres
+        JWT_SECRET: test_jwt_secret_key_for_testing_only
+        
+    - name: Run frontend tests
+      run: npm run test:run
+      env:
+        NODE_ENV: test
+        
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./backend/coverage/lcov.info,./coverage/lcov.info
+        fail_ci_if_error: true

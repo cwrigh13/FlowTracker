@@ -1,0 +1,51 @@
+# Node modules
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist
+coverage
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+env.test
+
+# Tests
+tests
+**/__tests__
+**/*.test.ts
+**/*.spec.ts
+
+# Documentation
+*.md
+!README.md
+
+# Scripts
+setup-*.ps1
+setup-*.sh
+*.bat
+test-*.js
+create-test-db.js
+run-tests.js
+
+# Uploads (will be mounted as volume)
+uploads/*
+
+# Keep database schema and migrations
+!database/
+
